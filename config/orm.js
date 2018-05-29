@@ -43,11 +43,36 @@ var orm = {
         });
     },
 
+    // selectCat
+    selectCat: function(tableInput, cb){
+        var queryString = "SELECT recipe_category FROM " + tableInput;
+        connection.query(queryString, function(err, result){
+            if(err){
+                throw err;
+            }
+            cb(result);
+        });
+    },
+
+    // selectAllFromCat
+    selectAllFromCat: function(table, condition, cb){
+        var queryString = "SELECT * FROM " + table;
+        queryString += " WHERE ";
+        queryString += condition;
+
+        connection.query(queryString, function(err, result){
+            if(err){
+                throw err;
+            }
+            cb(result);
+        });
+    },
+
     //insertIngred() - adds the ingredients from new recipe when user selects Create New Recipe
     insertIngred: function(table, cols, vals, cb){
         console.log(table,cols,vals);
 
-        var queryStrong = "INSERT INTO " + table;
+        var queryString = "INSERT INTO " + table;
 
         queryString += " (";
         queryString += cols.toString();
